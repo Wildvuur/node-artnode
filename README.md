@@ -18,7 +18,7 @@ TODO
 
 ## Listening for DMX
 ```javascript
-const ArtNet = require('../src/artnet');
+const { ArtNet } = require('artnode');
 
 const artnet = new Artnet({isController: true});
 
