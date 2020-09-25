@@ -1,6 +1,10 @@
-const { EventEmitter } = require('events');
+const {
+    EventEmitter
+} = require('events');
 const dgram = require('dgram');
-const { jspack } = require('jspack');
+const {
+    jspack
+} = require('jspack');
 const packets = require('./packets');
 const Device = require('./device');
 const Universe = require('./universe');
@@ -28,8 +32,12 @@ module.exports = class Artnet extends EventEmitter {
         this._port = parseInt(options.port, 10) || 6454;
         this._iface = options.iface || null;
         this._isController = options.isController || false;
+        this._dmxOnInput = options.dmxOnInput || false;
 
-        this._socket = dgram.createSocket({ type: 'udp4', reuseAddr: true });
+        this._socket = dgram.createSocket({
+            type: 'udp4',
+            reuseAddr: true
+        });
 
         this._socket.on('error', (err) => {
             this.emit('error', err);
@@ -73,7 +81,12 @@ module.exports = class Artnet extends EventEmitter {
         return this._universes[universe];
     }
 
-    _onMessage(msg, { address, family, port, size }) {
+    _onMessage(msg, {
+        address,
+        family,
+        port,
+        size
+    }) {
         if (size < 10) {
             // Not Art-Net.
             return;
@@ -128,7 +141,7 @@ module.exports = class Artnet extends EventEmitter {
         } catch (e) {
             console.warn(e);
         }
-        
+
         if (packet) {
             this.emit('packet', packet);
         }

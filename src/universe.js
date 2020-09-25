@@ -1,4 +1,6 @@
-const { EventEmitter } = require('events');
+const {
+    EventEmitter
+} = require('events');
 
 module.exports = class Universe extends EventEmitter {
     constructor(universe) {
@@ -6,6 +8,7 @@ module.exports = class Universe extends EventEmitter {
 
         this._data = new Uint8Array(512);
         this._universe = universe;
+        this._dmxOnInput = dmxOnInput;
     }
 
     get universe() {
@@ -30,8 +33,11 @@ module.exports = class Universe extends EventEmitter {
             }
         }
 
-        if (changed.length) {
-            this.emit('data', { data, changed });
+        if (changed.length || this._dmxOnInput) {
+            this.emit('data', {
+                data,
+                changed
+            });
         }
     }
 };
