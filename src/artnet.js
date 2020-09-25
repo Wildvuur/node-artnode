@@ -76,7 +76,7 @@ module.exports = class Artnet extends EventEmitter {
 
     getUniverse(universe) {
         if (!this._universes[universe]) {
-            this._universes[universe] = new Universe(universe);
+            this._universes[universe] = new Universe(universe, this._dmxOnInput);
         }
         return this._universes[universe];
     }
@@ -194,7 +194,7 @@ module.exports = class Artnet extends EventEmitter {
 
     _onDmx(packet) {
         if (!this._universes[packet.universe]) {
-            this._universes[packet.universe] = new Universe(packet.universe);
+            this._universes[packet.universe] = new Universe(packet.universe, this._dmxOnInput);
         }
 
         this._universes[packet.universe].readDmx(packet);

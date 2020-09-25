@@ -3,7 +3,7 @@ const {
 } = require('events');
 
 module.exports = class Universe extends EventEmitter {
-    constructor(universe) {
+    constructor(universe, dmxOnInput) {
         super();
 
         this._data = new Uint8Array(512);
